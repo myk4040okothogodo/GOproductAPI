@@ -19,7 +19,7 @@ message RateRequest {
 // rate which is afloating point number and can be used to convert between the two
 //
 message RateResponse {
-  float rate = 1;
+  double rate = 1;
   }
 
 enum Currencies {
