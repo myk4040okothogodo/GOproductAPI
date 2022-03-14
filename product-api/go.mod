@@ -11,6 +11,7 @@ replace github.com/myk4040okothogodo/Grpc2/product-api/handlers => ./handlers
 require (
 	github.com/gorilla/handlers v1.5.1
 	github.com/gorilla/mux v1.8.0
+	github.com/hashicorp/go-hclog v1.2.0
 	github.com/myk4040okothogodo/Grpc2/currency/protos/currency/protos v0.0.0-00010101000000-000000000000
 	github.com/myk4040okothogodo/Grpc2/product-api/data v0.0.0-00010101000000-000000000000
 	github.com/myk4040okothogodo/Grpc2/product-api/handlers v0.0.0-00010101000000-000000000000
@@ -18,13 +19,15 @@ require (
 )
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/fatih/color v1.7.0 // indirect
 	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator v9.31.0+incompatible // indirect
 	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
+	github.com/mattn/go-colorable v0.1.4 // indirect
+	github.com/mattn/go-isatty v0.0.10 // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
 	golang.org/x/text v0.3.7 // indirect

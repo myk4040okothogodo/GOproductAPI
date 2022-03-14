@@ -2,6 +2,8 @@ package data
 
 import (
     "fmt"
+    "context"
+    "github.com/hashicorp/go-hclog"
     protos "github.com/myk4040okothogodo/Grpc2/currency/protos/currency/protos"
 )
 
@@ -44,10 +46,10 @@ func (p *ProductsDB) GetProducts( currency string ) (Products,error) {
         p.log.Error("unable to get rate for currency :", currency,"error :",err)
         return nil, err
     }
-    pr := &Products{}
-    for _,p := range ProductList {
+    pr := Products{}
+    for _,p := range productList {
         np := *p
-        np.Price = np.Price * resp.Rate
+        np.Price = np.Price * rate
         pr = append(pr, &np)
     }
     return pr, nil
@@ -56,13 +58,13 @@ func (p *ProductsDB) GetProducts( currency string ) (Products,error) {
 // GetProductByID returns a single product which matches the id from the database
 // if a product is not found this function return a ProductNotFound error
 
-func(p *ProductsDB) GetProductByID(id int) (*Product, error) {
+func(p *ProductsDB) GetProductByID(id int, currency string) (*Product, error) {
     i := findIndexByProductID(id)
     if id == -1 {
         return nil, ErrProductNotFound
     }
 
-    if currency == ""{
+    if currency == "" {
         return productList[i], nil
     }
     rate, err := p.getRate(currency)
@@ -95,7 +97,7 @@ func(p *ProductsDB) UpdateProduct(pr Product) error {
 }
 
 //Addproduct adds a new product to the database
-func (p *ProductsDB) AddProduct(p Product) {
+func (p *ProductsDB) AddProduct(pr Product) {
     // get the next id in the sequence
     maxID := productList[len(productList)-1].ID
     pr.ID = maxID + 1
@@ -105,7 +107,7 @@ func (p *ProductsDB) AddProduct(p Product) {
 
 
 //Deleteproduct deletes a product from the database
-func (p *productsDB) DeleteProduct(id int) error {
+func (p *ProductsDB) DeleteProduct(id int) error {
     i := findIndexByProductID(id)
     if i == -1 {
         return ErrProductNotFound
@@ -119,7 +121,7 @@ func (p *productsDB) DeleteProduct(id int) error {
 
 //findIndex finds the index of a product in the databas
 //returns -1 when no product can be found
-func (p *productsDB)findIndexByProductID(id int) int {
+func findIndexByProductID(id int) int {
      for i, p := range productList {
           if p.ID == id {
               return i
